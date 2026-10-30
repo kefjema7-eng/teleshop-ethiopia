@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Create Account | TeleShop Ethiopia</title>
+
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
+
+        :root {
+            --green: #0b3d2e;
+            --green-2: #14563f;
+            --gold: #d4a84f;
+            --gold-light: #e7c77b;
+            --black: #07120f;
+            --cream: #f5f0e5;
+            --muted: #8d9b94;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--black);
+            color: white;
+            font-family: "DM Sans", sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: .9fr 1.1fr;
+            overflow: hidden;
+        }
+
+        /* LEFT */
+
+        .form-side {
+            padding: 38px 8%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .form-side::before {
+            content: "";
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(11,61,46,.55);
+            border-radius: 50%;
+            filter: blur(100px);
+            left: -250px;
+            bottom: -200px;
+        }
+
+        .form-card {
+            width: min(470px, 100%);
+            position: relative;
+            padding: 42px;
+            border-radius: 28px;
+            background: rgba(255,255,255,.055);
+            border: 1px solid rgba(255,255,255,.12);
+            box-shadow: 0 30px 100px rgba(0,0,0,.35);
+            backdrop-filter: blur(25px);
+        }
+
+        .small-label {
+            color: var(--gold);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .form-card h1 {
+            font-family: "Playfair Display", serif;
+            font-size: 42px;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #899790;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 27px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            color: #cbd5d0;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .form-group input {
+            width: 100%;
+            height: 52px;
+            padding: 0 16px;
+            border: 1px solid rgba(255,255,255,.11);
+            border-radius: 13px;
+            background: rgba(0,0,0,.22);
+            color: white;
+            outline: none;
+            transition: .2s;
+        }
+
+        .form-group input::placeholder {
+            color: #65736d;
+        }
+
+        .form-group input:focus {
+            border-color: rgba(212,168,79,.65);
+            box-shadow: 0 0 0 4px rgba(212,168,79,.08);
+        }
+
+        .terms {
+            margin: 17px 0;
+            color: #697770;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .terms a {
+            color: var(--gold-light);
+        }
+
+        .auth-submit {
+            width: 100%;
+            height: 56px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: #17130a;
+            font-weight: 800;
+            cursor: pointer;
+            transition: .25s;
+        }
+
+        .auth-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(212,168,79,.18);
+        }
+
+        .auth-switch {
+            margin-top: 23px;
+            text-align: center;
+            color: #78867f;
+            font-size: 13px;
+        }
+
+        .auth-switch a {
+            color: var(--gold-light);
+            font-weight: 700;
+        }
+
+        .back-home {
+            display: block;
+            margin-top: 22px;
+            text-align: center;
+            color: #697770;
+            font-size: 12px;
+        }
+
+        /* RIGHT */
+
+        .brand-side {
+            min-height: 100vh;
+            padding: 40px 8%;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(
+                    circle at 80% 20%,
+                    rgba(212,168,79,.12),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #0b3d2e,
+                    #061510
+                );
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .pattern {
+            position: absolute;
+            inset: 0;
+            opacity: .055;
+            background-image:
+                linear-gradient(30deg, transparent 45%, #e7c77b 46%, #e7c77b 54%, transparent 55%),
+                linear-gradient(-30deg, transparent 45%, #e7c77b 46%, #e7c77b 54%, transparent 55%);
+            background-size: 100px 100px;
+            transform: rotate(-10deg) scale(1.3);
+        }
+
+        .brand {
+            position: relative;
+            z-index: 2;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .brand em {
+            color: var(--gold);
+            font-style: normal;
+        }
+
+        .brand-mark {
+            display: inline-flex;
+            width: 34px;
+            height: 34px;
+            align-items: center;
+            justify-content: center;
+            margin-right: 8px;
+            border: 1px solid rgba(212,168,79,.5);
+            transform: rotate(45deg);
+        }
+
+        .brand-mark span {
+            transform: rotate(-45deg);
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .story {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin: auto 0;
+        }
+
+        .story-tag {
+            color: var(--gold-light);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .story h2 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(50px, 5vw, 76px);
+            line-height: .98;
+            letter-spacing: -3px;
+        }
+
+        .story h2 span {
+            color: var(--gold);
+        }
+
+        .story p {
+            margin-top: 25px;
+            max-width: 520px;
+            color: #aebbb4;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .feature-stack {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .feature {
+            padding: 18px;
+            min-height: 120px;
+            border: 1px solid rgba(255,255,255,.1);
+            background: rgba(255,255,255,.045);
+            backdrop-filter: blur(15px);
+            border-radius: 17px;
+        }
+
+        .feature-icon {
+            color: var(--gold);
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .feature strong {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .feature span {
+            color: #84928b;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 950px) {
+            .page {
+                grid-template-columns: 1fr;
+            }
+
+            .brand-side {
+                order: -1;
+                min-height: 420px;
+            }
+
+            .story {
+                margin: 65px 0 30px;
+            }
+
+            .story h2 {
+                font-size: 55px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .brand-side {
+                padding: 28px 22px;
+                min-height: 440px;
+            }
+
+            .feature-stack {
+                grid-template-columns: 1fr;
+            }
+
+            .feature {
+                min-height: auto;
+            }
+
+            .form-side {
+                padding: 45px 18px;
+            }
+
+            .form-card {
+                padding: 30px 22px;
+            }
+
+            .form-card h1 {
+                font-size: 35px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+    <section class="form-side">
+
+        <div class="form-card">
+
+            <div class="small-label">
+                Join the marketplace
+            </div>
+
+            <h1>Join TeleShop.</h1>
+
+            <p class="subtitle">
+                Create a customer account to shop, or a seller account to bring your business online.
+            </p>
+
+
+            <form id="registerForm">
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Your name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="e.g. Ahmed Mohammed"
+                        autocomplete="name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+                    <label for="accountRole">I want to</label>
+                    <select id="accountRole" required style="width:100%;padding:14px 15px;border-radius:10px;border:1px solid rgba(255,255,255,.14);background:#0b2119;color:#f4f1e8;font:inherit">
+                        <option value="customer">Buy products as a customer</option>
+                        <option value="seller">Sell products and manage a store</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="At least 6 characters"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="confirmPassword">
+                        Confirm password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Repeat your password"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                </div>
+
+
+                <p class="terms">
+                    By creating an account, you agree to use
+                    TeleShop responsibly and provide accurate
+                    information about your business.
+                </p>
+
+
+                <button
+                    type="submit"
+                    class="auth-submit"
+                >
+                    Create My Account →
+                </button>
+
+            </form>
+
+
+            <p class="auth-switch">
+
+                Already have an account?
+
+                <a href="login.html">
+                    Sign in
+                </a>
+
+            </p>
+
+
+            <a href="index.html" class="back-home">
+                ← Back to TeleShop
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <section class="brand-side">
+
+        <div class="pattern"></div>
+
+        <a href="index.html" class="brand">
+            <span class="brand-mark">
+                <span>TS</span>
+            </span>
+            Tele<em>Shop</em>
+        </a>
+
+
+        <div class="story">
+
+            <div class="story-tag">
+                Made for Ethiopia
+            </div>
+
+            <h2>
+                Turn your hustle
+                into a <span>business.</span>
+            </h2>
+
+            <p>
+                From the streets of Harar to businesses across
+                Ethiopia, TeleShop is being built to give
+                entrepreneurs a modern digital home for what
+                they sell.
+            </p>
+
+        </div>
+
+
+        <div class="feature-stack">
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    ◈
+                </div>
+
+                <strong>
+                    Your products
+                </strong>
+
+                <span>
+                    Manage your catalogue from one place.
+                </span>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    ↗
+                </div>
+
+                <strong>
+                    Your customers
+                </strong>
+
+                <span>
+                    Build a digital presence for your business.
+                </span>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    ✦
+                </div>
+
+                <strong>
+                    Your future
+                </strong>
+
+                <span>
+                    Start small. Build something real.
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+  <script src="config.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dashboard | TeleShop Ethiopia</title>
+
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
+
+        :root {
+            --green: #0b3d2e;
+            --green-2: #124d3a;
+            --gold: #d4a84f;
+            --gold-light: #e7c77b;
+            --black: #07120f;
+            --cream: #f5f0e5;
+            --surface: #101b17;
+            --surface-2: #14221d;
+            --line: rgba(255,255,255,.09);
+            --muted: #84938c;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--black);
+            color: white;
+            font-family: "DM Sans", sans-serif;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+            cursor: pointer;
+        }
+
+        /* HEADER */
+
+        .dashboard-header {
+            height: 76px;
+            padding: 0 34px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(7,18,15,.88);
+            border-bottom: 1px solid var(--line);
+            backdrop-filter: blur(20px);
+        }
+
+        .auth-logo {
+            display: flex;
+            align-items: center;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -.8px;
+        }
+
+        .auth-logo span {
+            color: var(--gold);
+        }
+
+        .logo-mark {
+            width: 31px;
+            height: 31px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            border: 1px solid rgba(212,168,79,.5);
+            transform: rotate(45deg);
+        }
+
+        .logo-mark span {
+            transform: rotate(-45deg);
+            font-size: 9px;
+            color: var(--gold);
+        }
+
+        .dashboard-user {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #dashboardUserName {
+            color: #c8d1cc;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .avatar {
+            width: 39px;
+            height: 39px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--gold), #8b6926);
+            color: #151007;
+            font-weight: 800;
+            font-size: 13px;
+        }
+
+        .logout-btn {
+            border: 1px solid rgba(255,255,255,.11);
+            background: rgba(255,255,255,.04);
+            color: #cbd4cf;
+            border-radius: 10px;
+            padding: 9px 14px;
+            font-size: 11px;
+            font-weight: 700;
+            transition: .2s;
+        }
+
+        .logout-btn:hover {
+            border-color: rgba(212,168,79,.4);
+            color: var(--gold-light);
+        }
+
+        /* LAYOUT */
+
+        .dashboard-layout {
+            min-height: calc(100vh - 76px);
+            display: grid;
+            grid-template-columns: 245px 1fr;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            border-right: 1px solid var(--line);
+            background: #091510;
+            padding: 28px 16px;
+        }
+
+        .side-label {
+            color: #59675f;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.7px;
+            margin: 15px 13px 10px;
+        }
+
+        .side-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 13px;
+            margin-bottom: 4px;
+            border-radius: 10px;
+            color: #8d9b94;
+            font-size: 12px;
+            font-weight: 600;
+            transition: .2s;
+        }
+
+        .side-link:hover,
+        .side-link.active {
+            background: rgba(212,168,79,.09);
+            color: var(--gold-light);
+        }
+
+        .side-icon {
+            width: 25px;
+            text-align: center;
+            color: inherit;
+        }
+
+        .sidebar-bottom {
+            margin-top: 35px;
+            padding: 17px;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            background: rgba(255,255,255,.025);
+        }
+
+        .sidebar-bottom strong {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .sidebar-bottom p {
+            color: #68766f;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+        /* MAIN */
+
+        .dashboard-main {
+            padding: 42px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-main::before {
+            content: "";
+            position: absolute;
+            width: 550px;
+            height: 550px;
+            border-radius: 50%;
+            background: rgba(11,61,46,.2);
+            filter: blur(100px);
+            right: -250px;
+            top: -200px;
+            pointer-events: none;
+        }
+
+        .container {
+            width: min(1250px, 100%);
+            margin: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .eyebrow {
+            color: var(--gold);
+            font-size: 10px;
+            letter-spacing: 2px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .welcome h1 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(38px, 5vw, 58px);
+            letter-spacing: -2px;
+            line-height: 1;
+        }
+
+        .welcome h1 span {
+            color: var(--gold);
+        }
+
+        .welcome p {
+            margin-top: 12px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* STATS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 35px;
+        }
+
+        .stat {
+            padding: 23px;
+            min-height: 145px;
+            position: relative;
+            overflow: hidden;
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.055),
+                    rgba(255,255,255,.018)
+                );
+            border: 1px solid var(--line);
+            border-radius: 19px;
+            box-shadow: 0 20px 50px rgba(0,0,0,.15);
+        }
+
+        .stat::after {
+            content: "";
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: rgba(212,168,79,.08);
+            filter: blur(30px);
+            right: -30px;
+            top: -30px;
+        }
+
+        .stat-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .stat-icon {
+            color: var(--gold);
+            font-size: 18px;
+        }
+
+        .stat strong {
+            display: block;
+            margin-top: 20px;
+            font-size: 31px;
+            letter-spacing: -1px;
+        }
+
+        .stat small {
+            display: block;
+            margin-top: 5px;
+            color: #617068;
+            font-size: 10px;
+        }
+
+        /* ACTIONS */
+
+        .section-title {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            margin: 42px 0 15px;
+        }
+
+        .section-title h2 {
+            font-size: 19px;
+            letter-spacing: -.4px;
+        }
+
+        .section-title p {
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .action {
+            min-height: 145px;
+            padding: 22px;
+            border-radius: 17px;
+            border: 1px solid var(--line);
+            background: var(--surface);
+            transition: .25s;
+        }
+
+        .action:hover {
+            transform: translateY(-4px);
+            border-color: rgba(212,168,79,.35);
+            box-shadow: 0 20px 50px rgba(0,0,0,.2);
+        }
+
+        .action-icon {
+            font-size: 21px;
+            color: var(--gold);
+            margin-bottom: 17px;
+        }
+
+        .action h3 {
+            font-size: 14px;
+            margin-bottom: 7px;
+        }
+
+        .action p {
+            color: #74827b;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .action-arrow {
+            display: block;
+            margin-top: 14px;
+            color: var(--gold);
+            font-size: 13px;
+        }
+
+        /* BOTTOM */
+
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 1.4fr .8fr;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .panel {
+            min-height: 220px;
+            padding: 23px;
+            border: 1px solid var(--line);
+            background: var(--surface);
+            border-radius: 18px;
+        }
+
+        .panel h3 {
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .panel-subtitle {
+            color: #6d7b74;
+            font-size: 10px;
+        }
+
+        .chart {
+            height: 140px;
+            margin-top: 20px;
+            display: flex;
+            align-items: end;
+            gap: 10px;
+        }
+
+        .bar {
+            flex: 1;
+            min-width: 8px;
+            border-radius: 5px 5px 2px 2px;
+            background: linear-gradient(
+                to top,
+                #0b3d2e,
+                var(--gold)
+            );
+            opacity: .8;
+        }
+
+        .empty-message {
+            height: 145px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #536159;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        .quick-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .info-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--line);
+            font-size: 11px;
+        }
+
+        .info-line span {
+            color: #728078;
+        }
+
+        .info-line strong {
+            color: #d4ddd8;
+        }
+
+        @media (max-width: 1050px) {
+            .dashboard-layout {
+                grid-template-columns: 200px 1fr;
+            }
+
+            .dashboard-main {
+                padding: 30px;
+            }
+
+            .bottom-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .dashboard-header {
+                padding: 0 18px;
+            }
+
+            #dashboardUserName {
+                display: none;
+            }
+
+            .dashboard-main {
+                padding: 27px 18px 50px;
+            }
+
+            .stats,
+            .actions {
+                grid-template-columns: 1fr;
+            }
+
+            .stat {
+                min-height: 120px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body class="dashboard-page">
+
+
+<header class="dashboard-header">
+
+    <a
+        href="dashboard.html"
+        class="auth-logo"
+    >
+
+        <span class="logo-mark">
+            <span>TS</span>
+        </span>
+
+        Tele<span>Shop</span>
+
+    </a>
+
+
+    <div class="dashboard-user">
+
+        <span id="dashboardUserName">
+            Loading...
+        </span>
+
+        <div class="avatar">
+            TS
+        </div>
+
+        <button
+            type="button"
+            id="logoutBtn"
+            class="logout-btn"
+        >
+            Log out
+        </button>
+
+    </div>
+
+</header>
+
+
+<div class="dashboard-layout">
+
+
+    <aside class="sidebar">
+
+        <div class="side-label">
+            COMMAND CENTER
+        </div>
+
+        <a
+            href="dashboard.html"
+            class="side-link active"
+        >
+            <span class="side-icon">◈</span>
+            Overview
+        </a>
+
+        <a
+            href="products.html"
+            class="side-link"
+        >
+            <span class="side-icon">□</span>
+            Products
+        </a>
+
+        <a
+            href="#"
+            class="side-link"
+        >
+            <span class="side-icon">↗</span>
+            Orders
+        </a>
+
+
+        <div class="side-label">
+            BUSINESS
+        </div>
+
+        <a
+            href="#"
+            class="side-link"
+        >
+            <span class="side-icon">◎</span>
+            My Store
+        </a>
+
+        <a
+            href="#"
+            class="side-link"
+        >
+            <span class="side-icon">♢</span>
+            Customers
+        </a>
+
+
+        <div class="side-label">
+            TOOLS
+        </div>
+
+        <a
+            href="#"
+            class="side-link"
+        >
+            <span class="side-icon">⌁</span>
+            Analytics
+        </a>
+
+        <a
+            href="#"
+            class="side-link"
+        >
+            <span class="side-icon">✈</span>
+            Telegram
+        </a>
+
+
+        <div class="sidebar-bottom">
+
+            <strong>
+                Built for Ethiopia 🇪🇹
+            </strong>
+
+            <p>
+                TeleShop is being built to help
+                Ethiopian businesses move from
+                offline hustle to digital commerce.
+            </p>
+
+        </div>
+
+    </aside>
+
+
+    <main class="dashboard-main">
+
+        <div class="container">
+
+
+            <section class="welcome">
+
+                <div class="eyebrow">
+                    Your command center
+                </div>
+
+                <h1>
+                    Welcome back,
+                    <span id="welcomeUserName">
+                        Seller
+                    </span>.
+                </h1>
+
+                <p>
+                    Here's a quick look at your TeleShop business.
+                </p>
+
+            </section>
+
+
+            <section class="stats">
+
+                <div class="stat">
+
+                    <div class="stat-top">
+
+                        <span class="stat-label">
+                            TOTAL PRODUCTS
+                        </span>
+
+                        <span class="stat-icon">
+                            □
+                        </span>
+
+                    </div>
+
+                    <strong id="totalProducts">
+                        0
+                    </strong>
+
+                    <small>
+                        Products in your catalogue
+                    </small>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-top">
+
+                        <span class="stat-label">
+                            TOTAL ORDERS
+                        </span>
+
+                        <span class="stat-icon">
+                            ↗
+                        </span>
+
+                    </div>
+
+                    <strong id="totalOrders">
+                        0
+                    </strong>
+
+                    <small>
+                        Orders received
+                    </small>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-top">
+
+                        <span class="stat-label">
+                            REVENUE
+                        </span>
+
+                        <span class="stat-icon">
+                            ◉
+                        </span>
+
+                    </div>
+
+                    <strong id="totalRevenue">
+                        ETB 0
+                    </strong>
+
+                    <small>
+                        Revenue generated
+                    </small>
+
+                </div>
+
+            </section>
+
+
+            <section>
+
+                <div class="section-title">
+
+                    <div>
+
+                        <h2>
+                            Quick actions
+                        </h2>
+
+                        <p>
+                            The things you use most.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="actions">
+
+
+                    <a
+                        href="products.html"
+                        class="action"
+                    >
+
+                        <div class="action-icon">
+                            +
+                        </div>
+
+                        <h3>
+                            Manage Products
+                        </h3>
+
+                        <p>
+                            Add, edit and organize everything
+                            you're selling.
+                        </p>
+
+                        <span class="action-arrow">
+                            Open products →
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="products.html"
+                        class="action"
+                    >
+
+                        <div class="action-icon">
+                            □
+                        </div>
+
+                        <h3>
+                            Your Catalogue
+                        </h3>
+
+                        <p>
+                            See the products currently
+                            available in your store.
+                        </p>
+
+                        <span class="action-arrow">
+                            View catalogue →
+                        </span>
+
+                    </a>
+
+
+                    <div class="action">
+
+                        <div class="action-icon">
+                            ✈
+                        </div>
+
+                        <h3>
+                            Telegram Commerce
+                        </h3>
+
+                        <p>
+                            Connect your business to
+                            Telegram.
+                        </p>
+
+                        <span class="action-arrow">
+                            Coming soon
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+            <section class="bottom-grid">
+
+
+                <div class="panel">
+
+                    <h3>
+                        Business activity
+                    </h3>
+
+                    <p class="panel-subtitle">
+                        Your activity overview.
+                    </p>
+
+
+                    <div class="chart">
+
+                        <div class="bar" style="height:28%"></div>
+                        <div class="bar" style="height:45%"></div>
+                        <div class="bar" style="height:35%"></div>
+                        <div class="bar" style="height:60%"></div>
+                        <div class="bar" style="height:48%"></div>
+                        <div class="bar" style="height:72%"></div>
+                        <div class="bar" style="height:55%"></div>
+                        <div class="bar" style="height:82%"></div>
+                        <div class="bar" style="height:68%"></div>
+                        <div class="bar" style="height:92%"></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <h3>
+                        Account
+                    </h3>
+
+                    <p class="panel-subtitle">
+                        Your TeleShop account.
+                    </p>
+
+
+                    <div class="quick-info">
+
+                        <div class="info-line">
+
+                            <span>
+                                Seller
+                            </span>
+
+                            <strong id="accountName">
+                                Loading...
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-line">
+
+                            <span>
+                                Email
+                            </span>
+
+                            <strong id="accountEmail">
+                                Loading...
+                            </strong>
+
+                        </div>
+
+
+                        <div class="info-line">
+
+                            <span>
+                                Status
+                            </span>
+
+                            <strong>
+                                Active
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+  <script src="config.js"></script>
+  <script src="js/dashboard.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Products | TeleShop Ethiopia</title>
+
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
+
+        :root {
+            --green: #0b3d2e;
+            --green-2: #124d3a;
+            --gold: #d4a84f;
+            --gold-light: #e7c77b;
+            --black: #07120f;
+            --surface: #101b17;
+            --surface-2: #14221d;
+            --line: rgba(255,255,255,.09);
+            --muted: #84938c;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(
+                    circle at 90% 0%,
+                    rgba(11,61,46,.28),
+                    transparent 28%
+                ),
+                var(--black);
+            color: white;
+            font-family: "DM Sans", sans-serif;
+        }
+
+        button,
+        input,
+        textarea {
+            font: inherit;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* HEADER */
+
+        .dashboard-header {
+            height: 76px;
+            padding: 0 34px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(7,18,15,.9);
+            border-bottom: 1px solid var(--line);
+            backdrop-filter: blur(20px);
+        }
+
+        .auth-logo {
+            display: flex;
+            align-items: center;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -.8px;
+        }
+
+        .auth-logo span {
+            color: var(--gold);
+        }
+
+        .logo-mark {
+            width: 31px;
+            height: 31px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            border: 1px solid rgba(212,168,79,.5);
+            transform: rotate(45deg);
+        }
+
+        .logo-mark span {
+            transform: rotate(-45deg);
+            color: var(--gold);
+            font-size: 9px;
+        }
+
+        .dashboard-user {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #productsUserName {
+            color: #c8d1cc;
+            font-size: 13px;
+        }
+
+        .logout-btn {
+            border: 1px solid rgba(255,255,255,.11);
+            background: rgba(255,255,255,.04);
+            color: #cbd4cf;
+            border-radius: 10px;
+            padding: 9px 14px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .logout-btn:hover {
+            color: var(--gold-light);
+            border-color: rgba(212,168,79,.4);
+        }
+
+        /* MAIN */
+
+        .products-container {
+            width: min(1220px, calc(100% - 48px));
+            margin: auto;
+            padding: 50px 0 90px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: #6f7d76;
+            font-size: 11px;
+            margin-bottom: 35px;
+        }
+
+        .back-link:hover {
+            color: var(--gold);
+        }
+
+        .products-page-header {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 30px;
+            margin-bottom: 28px;
+        }
+
+        .hero-tag {
+            color: var(--gold);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .products-page-header h1 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(40px, 5vw, 62px);
+            letter-spacing: -2px;
+            line-height: 1;
+        }
+
+        .products-page-header p {
+            max-width: 530px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.7;
+            margin-top: 12px;
+        }
+
+        .primary-btn {
+            border: none;
+            border-radius: 12px;
+            padding: 14px 19px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: #17130a;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: .25s;
+            white-space: nowrap;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(212,168,79,.16);
+        }
+
+        .secondary-btn {
+            border: 1px solid rgba(255,255,255,.11);
+            border-radius: 12px;
+            padding: 14px 19px;
+            background: rgba(255,255,255,.04);
+            color: #cbd4cf;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* SUMMARY */
+
+        .products-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .summary-card {
+            min-height: 125px;
+            padding: 21px;
+            border: 1px solid var(--line);
+            border-radius: 17px;
+            background: var(--surface);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .summary-card::after {
+            content: "";
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: rgba(212,168,79,.08);
+            filter: blur(25px);
+            right: -30px;
+            top: -30px;
+        }
+
+        .summary-card span {
+            display: block;
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .summary-card strong {
+            display: block;
+            margin-top: 18px;
+            color: white;
+            font-size: 30px;
+        }
+
+        /* TOOLBAR */
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 17px;
+        }
+
+        .search-box {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            height: 48px;
+            padding: 0 15px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: var(--surface);
+            color: white;
+            outline: none;
+        }
+
+        .search-box input::placeholder {
+            color: #5e6b65;
+        }
+
+        .search-box input:focus {
+            border-color: rgba(212,168,79,.45);
+        }
+
+        /* PRODUCT GRID */
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0,1fr));
+            gap: 17px;
+        }
+
+        .product-card {
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: var(--surface);
+            transition: .25s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(212,168,79,.3);
+            box-shadow: 0 25px 60px rgba(0,0,0,.22);
+        }
+
+        .product-card-image,
+        .product-card-placeholder {
+            width: 100%;
+            height: 220px;
+            background:
+                linear-gradient(
+                    135deg,
+                    #0d2e24,
+                    #17221e
+                );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-card-placeholder {
+            font-size: 45px;
+            color: rgba(212,168,79,.35);
+        }
+
+        .product-card-body {
+            padding: 19px;
+        }
+
+        .product-card-body h3 {
+            font-size: 15px;
+            margin-bottom: 7px;
+        }
+
+        .product-card-description {
+            min-height: 34px;
+            color: #6f7c75;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .product-price {
+            margin-top: 17px;
+            color: var(--gold-light);
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .product-stock {
+            margin-top: 5px;
+            color: #6f7c75;
+            font-size: 10px;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .product-actions button {
+            flex: 1;
+            padding: 9px;
+            border: 1px solid var(--line);
+            border-radius: 9px;
+            background: rgba(255,255,255,.035);
+            color: #aeb8b3;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .product-actions button:hover {
+            color: var(--gold);
+            border-color: rgba(212,168,79,.35);
+        }
+
+        /* EMPTY */
+
+        .empty-products {
+            padding: 75px 25px;
+            text-align: center;
+            border: 1px dashed rgba(255,255,255,.12);
+            border-radius: 20px;
+            background: rgba(255,255,255,.018);
+        }
+
+        .empty-icon {
+            font-size: 44px;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .empty-products h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 29px;
+        }
+
+        .empty-products p {
+            max-width: 400px;
+            margin: 10px auto 20px;
+            color: #6e7b74;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        /* MODAL */
+
+        .product-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(0,0,0,.72);
+            backdrop-filter: blur(8px);
+        }
+
+        .product-modal.hidden {
+            display: none;
+        }
+
+        .product-modal-content {
+            width: min(620px, 100%);
+            max-height: 92vh;
+            overflow-y: auto;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,.11);
+            border-radius: 22px;
+            background: #101b17;
+            box-shadow: 0 35px 100px rgba(0,0,0,.55);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: start;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        .modal-header h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 30px;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--line);
+            border-radius: 9px;
+            background: rgba(255,255,255,.04);
+            color: #aeb8b3;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            color: #bdc8c2;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid var(--line);
+            border-radius: 11px;
+            background: rgba(0,0,0,.18);
+            color: white;
+            outline: none;
+            resize: vertical;
+        }
+
+        .form-group input {
+            height: 48px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: rgba(212,168,79,.5);
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 6px;
+            color: #596760;
+            font-size: 9px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 13px;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        @media (max-width: 950px) {
+            .products-grid {
+                grid-template-columns: repeat(2, minmax(0,1fr));
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .dashboard-header {
+                padding: 0 18px;
+            }
+
+            #productsUserName {
+                display: none;
+            }
+
+            .products-container {
+                width: calc(100% - 30px);
+                padding-top: 35px;
+            }
+
+            .products-page-header {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .products-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .toolbar {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .products-page-header h1 {
+                font-size: 43px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .product-modal-content {
+                padding: 23px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body class="products-page">
+
+
+<header class="dashboard-header">
+
+    <a
+        href="dashboard.html"
+        class="auth-logo"
+    >
+
+        <span class="logo-mark">
+            <span>TS</span>
+        </span>
+
+        Tele<span>Shop</span>
+
+    </a>
+
+
+    <div class="dashboard-user">
+
+        <span id="productsUserName">
+            Loading...
+        </span>
+
+        <button
+            type="button"
+            id="logoutBtn"
+            class="logout-btn"
+        >
+            Log out
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="products-container">
+
+
+    <a
+        href="dashboard.html"
+        class="back-link"
+    >
+        ← Dashboard
+    </a>
+
+
+    <section class="products-page-header">
+
+        <div>
+
+            <div class="hero-tag">
+                Inventory / Product Studio
+            </div>
+
+            <h1>
+                Your products.
+            </h1>
+
+            <p>
+                Manage the catalogue behind your TeleShop store.
+                Add products, update inventory and keep your
+                business organized.
+            </p>
+
+        </div>
+
+
+        <button
+            type="button"
+            id="openAddProductBtn"
+            class="primary-btn"
+        >
+            + Add Product
+        </button>
+
+    </section>
+
+
+    <section class="products-summary">
+
+
+        <div class="summary-card">
+
+            <span>
+                TOTAL PRODUCTS
+            </span>
+
+            <strong id="productCount">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <span>
+                INVENTORY STATUS
+            </span>
+
+            <strong>
+                Active
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <span>
+                STORE
+            </span>
+
+            <strong>
+                Live
+            </strong>
+
+        </div>
+
+
+    </section>
+
+
+    <div class="toolbar">
+
+        <div class="search-box">
+
+            <input
+                type="search"
+                id="productSearch"
+                placeholder="Search your products..."
+            >
+
+        </div>
+
+    </div>
+
+
+    <section>
+
+        <div
+            id="productsGrid"
+            class="products-grid"
+        >
+
+            <!-- Products inserted by products.js -->
+
+        </div>
+
+
+        <div
+            id="emptyProducts"
+            class="empty-products"
+        >
+
+            <div class="empty-icon">
+                ◈
+            </div>
+
+            <h2>
+                Your catalogue starts here.
+            </h2>
+
+            <p>
+                Add your first product and begin building
+                your TeleShop store.
+            </p>
+
+            <button
+                type="button"
+                id="emptyAddProductBtn"
+                class="primary-btn"
+            >
+                Add Your First Product
+            </button>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<!-- =========================================================
+     PRODUCT MODAL
+     ========================================================= -->
+
+<div
+    id="productModal"
+    class="product-modal hidden"
+>
+
+    <div class="product-modal-content">
+
+
+        <div class="modal-header">
+
+            <div>
+
+                <div class="hero-tag">
+                    Product
+                </div>
+
+                <h2 id="modalTitle">
+                    Add Product
+                </h2>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="closeProductModal"
+                class="modal-close"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="productForm">
+
+
+            <div class="form-group">
+
+                <label for="productName">
+                    Product Name
+                </label>
+
+                <input
+                    type="text"
+                    id="productName"
+                    placeholder="e.g. iPhone 15 Pro"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="productDescription">
+                    Description
+                </label>
+
+                <textarea
+                    id="productDescription"
+                    rows="4"
+                    placeholder="Describe your product..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-row">
+
+
+                <div class="form-group">
+
+                    <label for="productPrice">
+                        Price (ETB)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="productPrice"
+                        min="0"
+                        step="0.01"
+                        placeholder="0.00"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="productStock">
+                        Stock
+                    </label>
+
+                    <input
+                        type="number"
+                        id="productStock"
+                        min="0"
+                        step="1"
+                        placeholder="0"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="productCategory">
+                    Category
+                </label>
+
+                <input
+                    type="text"
+                    id="productCategory"
+                    placeholder="e.g. Electronics"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="productImage">
+                    Product Image URL
+                </label>
+
+                <input
+                    type="url"
+                    id="productImage"
+                    placeholder="https://example.com/image.jpg"
+                >
+
+                <small>
+                    Image uploads will be added later.
+                </small>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    id="cancelProductBtn"
+                    class="secondary-btn"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    id="saveProductBtn"
+                    class="primary-btn"
+                >
+                    Save Product
+                </button>
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+</div>
+
+
+<script src="js/products.js"></script>
+
+
+</body>
+</html>

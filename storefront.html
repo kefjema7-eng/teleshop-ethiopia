@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Marketplace | TeleShop Ethiopia</title>
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #071c16;
+            --bg-soft: #0a251d;
+            --bg-card: #0d2b22;
+            --gold: #e2b956;
+            --gold-soft: #f0cc77;
+            --cream: #f2efe7;
+            --muted: #9aa79f;
+            --border: rgba(226, 185, 86, 0.18);
+            --white: #ffffff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--cream);
+            font-family: "Manrope", sans-serif;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .storefront-header {
+            padding: 18px 24px;
+            background: rgba(7, 28, 22, 0.96);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .storefront-header-inner {
+            width: min(1280px, 100%);
+            min-height: 62px;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+
+            padding: 0 16px 0 18px;
+
+            background: rgba(10, 37, 29, 0.72);
+
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+
+            text-decoration: none;
+            color: var(--cream);
+
+            font-size: 23px;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+
+            display: grid;
+            place-items: center;
+
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+
+            color: var(--gold);
+
+            font-family: "DM Mono", monospace;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+
+        /* =====================================================
+           NAVIGATION
+        ===================================================== */
+
+        .storefront-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        .storefront-nav a {
+            color: #aeb8b1;
+            text-decoration: none;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            transition: color 0.2s ease;
+        }
+
+        .storefront-nav a:hover,
+        .storefront-nav .active {
+            color: var(--gold);
+        }
+
+        .storefront-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .login-btn {
+            padding: 12px 18px;
+
+            color: var(--cream);
+            text-decoration: none;
+
+            border: 1px solid var(--border);
+            border-radius: 11px;
+
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .sell-btn {
+            padding: 13px 20px;
+
+            background: var(--gold);
+            color: #172016;
+
+            text-decoration: none;
+
+            border-radius: 10px;
+
+            font-size: 12px;
+            font-weight: 800;
+
+            box-shadow: 0 8px 25px rgba(226,185,86,0.15);
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .storefront-hero {
+            position: relative;
+            overflow: hidden;
+
+            min-height: 470px;
+
+            padding: 95px 7% 90px;
+
+            display: flex;
+            align-items: center;
+
+            background:
+                radial-gradient(
+                    circle at 82% 25%,
+                    rgba(226,185,86,0.08),
+                    transparent 22%
+                ),
+                radial-gradient(
+                    circle at 15% 75%,
+                    rgba(30,100,72,0.15),
+                    transparent 30%
+                ),
+                var(--bg);
+        }
+
+        .storefront-hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 550px;
+            height: 550px;
+
+            right: -280px;
+            top: -250px;
+
+            border: 1px solid rgba(226,185,86,0.13);
+            border-radius: 50%;
+        }
+
+        .storefront-hero::after {
+            content: "";
+
+            position: absolute;
+
+            width: 340px;
+            height: 340px;
+
+            right: 10%;
+            bottom: -260px;
+
+            border: 1px solid rgba(226,185,86,0.08);
+            border-radius: 50%;
+        }
+
+        .storefront-hero-inner {
+            position: relative;
+            z-index: 2;
+
+            width: min(1280px, 100%);
+            margin: auto;
+        }
+
+        .storefront-eyebrow {
+            display: inline-flex;
+            align-items: center;
+
+            padding: 10px 16px;
+
+            border: 1px solid rgba(226,185,86,0.42);
+            border-radius: 999px;
+
+            color: var(--gold);
+
+            font-family: "DM Mono", monospace;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+        }
+
+        .storefront-hero h1 {
+            max-width: 760px;
+
+            margin-top: 28px;
+
+            font-family: "Playfair Display", serif;
+            font-size: clamp(55px, 7vw, 100px);
+            font-weight: 700;
+            line-height: 0.88;
+            letter-spacing: -4px;
+        }
+
+        .storefront-hero h1 span {
+            color: var(--gold);
+        }
+
+        .storefront-hero p {
+            max-width: 610px;
+
+            margin-top: 28px;
+
+            color: #a9b5ae;
+
+            font-size: 16px;
+            line-height: 1.9;
+        }
+
+        .hero-line {
+            width: 70px;
+            height: 2px;
+
+            margin-top: 35px;
+
+            background: var(--gold);
+        }
+
+
+        /* =====================================================
+           MARKETPLACE
+        ===================================================== */
+
+        .storefront-main {
+            background: #f2efe7;
+            color: #122119;
+
+            padding: 90px 7%;
+        }
+
+        .storefront-container {
+            width: min(1280px, 100%);
+            margin: auto;
+        }
+
+        .storefront-section-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+
+            gap: 30px;
+
+            margin-bottom: 48px;
+        }
+
+        .section-label {
+            color: #9b772c;
+
+            font-family: "DM Mono", monospace;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .storefront-section-header h2 {
+            margin-top: 12px;
+
+            font-family: "Playfair Display", serif;
+            font-size: clamp(38px, 5vw, 65px);
+            line-height: 1;
+            letter-spacing: -2px;
+
+            color: #10271d;
+        }
+
+        .storefront-count {
+            padding-bottom: 7px;
+
+            color: #728078;
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           PRODUCT GRID
+        ===================================================== */
+
+        .storefront-products-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 24px;
+        }
+
+        .storefront-product-card {
+            background: #fff;
+
+            border: 1px solid #ddd9ce;
+            border-radius: 3px;
+
+            overflow: hidden;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .storefront-product-card:hover {
+            transform: translateY(-8px);
+
+            box-shadow:
+                0 22px 50px rgba(12, 30, 22, 0.13);
+        }
+
+        .storefront-product-image-wrapper {
+            position: relative;
+
+            height: 285px;
+
+            background: #e7e4da;
+
+            overflow: hidden;
+        }
+
+        .storefront-product-image-wrapper::after {
+            content: "";
+
+            position: absolute;
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    to top,
+                    rgba(0,0,0,0.12),
+                    transparent 45%
+                );
+
+            pointer-events: none;
+        }
+
+        .storefront-product-image {
+            width: 100%;
+            height: 100%;
+
+            display: block;
+
+            object-fit: cover;
+
+            transition: transform 0.5s ease;
+        }
+
+        .storefront-product-card:hover
+        .storefront-product-image {
+            transform: scale(1.05);
+        }
+
+        .storefront-product-placeholder {
+            width: 100%;
+            height: 100%;
+
+            display: grid;
+            place-items: center;
+
+            font-size: 60px;
+        }
+
+        .storefront-product-content {
+            padding: 24px;
+        }
+
+        .storefront-product-category {
+            color: #a77b24;
+
+            font-family: "DM Mono", monospace;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+        }
+
+        .storefront-product-content h3 {
+            margin: 12px 0 10px;
+
+            color: #14261d;
+
+            font-family: "Playfair Display", serif;
+            font-size: 26px;
+            line-height: 1.15;
+        }
+
+        .storefront-product-content p {
+            color: #758078;
+
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .storefront-product-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-top: 22px;
+            padding-top: 18px;
+
+            border-top: 1px solid #e7e3d9;
+        }
+
+        .storefront-product-bottom strong {
+            color: #173d2c;
+
+            font-family: "DM Mono", monospace;
+            font-size: 17px;
+        }
+
+        .storefront-product-bottom span {
+            color: #778279;
+
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           MESSAGES
+        ===================================================== */
+
+        .storefront-message {
+            padding: 80px 20px;
+
+            text-align: center;
+
+            color: #68756d;
+
+            font-size: 15px;
+        }
+
+        .storefront-empty {
+            flex-direction: column;
+        }
+
+        .storefront-empty h3 {
+            margin-bottom: 10px;
+
+            color: #173d2c;
+
+            font-family: "Playfair Display", serif;
+            font-size: 32px;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .storefront-footer {
+            padding: 55px 7%;
+
+            background: #061710;
+        }
+
+        .storefront-footer-inner {
+            width: min(1280px, 100%);
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 25px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            color: var(--cream);
+
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .footer-brand span {
+            color: var(--gold);
+        }
+
+        .storefront-footer p {
+            color: #7e8d84;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 950px) {
+
+            .storefront-products-grid {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+            .storefront-nav {
+                gap: 18px;
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            .storefront-header {
+                padding: 10px 12px;
+            }
+
+            .storefront-header-inner {
+                border-radius: 14px;
+            }
+
+            .storefront-nav {
+                display: none;
+            }
+
+            .login-btn {
+                display: none;
+            }
+
+            .storefront-hero {
+                min-height: 430px;
+                padding: 70px 8%;
+            }
+
+            .storefront-hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .storefront-main {
+                padding: 65px 6%;
+            }
+
+            .storefront-section-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .storefront-count {
+                padding: 0;
+            }
+
+            .storefront-products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .storefront-footer-inner {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="storefront-header">
+
+        <div class="storefront-header-inner">
+
+            <a href="index.html" class="logo">
+
+                <div class="logo-icon">
+                    TS
+                </div>
+
+                Tele<span>Shop</span>
+
+            </a>
+
+
+            <nav class="storefront-nav">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="storefront.html" class="active">
+                    Marketplace
+                </a>
+
+                <a href="tailor.html">
+                    Tailor Shop
+                </a>
+
+                <a href="customer-orders.html">
+                    My Orders
+                </a>
+
+                <a href="index.html#how">
+                    How It Works
+                </a>
+
+                <a href="index.html#story">
+                    Our Story
+                </a>
+
+                <a href="index.html#vision">
+                    Vision
+                </a>
+
+            </nav>
+
+
+            <div class="storefront-actions">
+
+                <a href="login.html" class="login-btn">
+                    Log In
+                </a>
+
+                <a href="register.html" class="sell-btn">
+                    Start Selling
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="storefront-hero">
+
+        <div class="storefront-hero-inner">
+
+            <span class="storefront-eyebrow">
+                ET · Marketplace
+            </span>
+
+            <h1>
+                Ethiopia's<br>
+                digital <span>marketplace.</span>
+            </h1>
+
+            <p>
+                Discover products from businesses across Ethiopia.
+                Browse unique products, support local sellers,
+                and connect with a new generation of commerce.
+            </p>
+
+            <div class="hero-line"></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PRODUCTS
+    ====================================================== -->
+
+    <main class="storefront-main">
+
+        <div class="storefront-container">
+
+            <div class="marketplace-tools" aria-label="Search and filter products">
+                <label class="marketplace-search"><span aria-hidden="true">⌕</span><input id="productSearch" type="search" placeholder="Search products, brands, or descriptions..." autocomplete="off"></label>
+                <select id="categoryFilter" aria-label="Filter by category"><option value="">All categories</option></select>
+                <select id="sortProducts" aria-label="Sort products"><option value="newest">Newest first</option><option value="price-low">Price: low to high</option><option value="price-high">Price: high to low</option><option value="name">Name: A–Z</option></select>
+                <button id="cartOpenButton" class="cart-open-button" type="button"><span aria-hidden="true">▣</span> Cart <b id="cartCount">0</b></button>
+            </div>
+
+            <div class="storefront-section-header">
+
+                <div>
+
+                    <div class="section-label">
+                        Explore the marketplace
+                    </div>
+
+                    <h2>
+                        Available Products
+                    </h2>
+
+                </div>
+
+                <span class="storefront-count">
+                    Products updated from TeleShop sellers
+                </span>
+
+            </div>
+
+
+            <!-- LOADING -->
+
+            <div
+                id="storefrontLoading"
+                class="storefront-message"
+            >
+                Loading products...
+            </div>
+
+
+            <!-- EMPTY -->
+
+            <div
+                id="storefrontEmpty"
+                class="storefront-message storefront-empty"
+                style="display: none;"
+            >
+                <h3>No Products Available</h3>
+
+                <p>
+                    New products will appear here soon.
+                </p>
+
+            </div>
+
+
+            <!-- PRODUCT GRID -->
+
+            <section
+                id="storefrontProducts"
+                class="storefront-products-grid"
+            ></section>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="storefront-footer">
+
+        <div class="storefront-footer-inner">
+
+            <div class="footer-brand">
+                TELE<span>SHOP</span> ETHIOPIA
+            </div>
+
+            <p>
+                © 2026 TeleShop Ethiopia · Built for Ethiopian commerce.
+            </p>
+            <p style="font-size:11px;margin-top:10px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap"><a href="privacy.html" style="color:#9aa79f">Privacy notice</a><a href="terms.html" style="color:#9aa79f">Marketplace terms</a></p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- KEEP YOUR EXISTING PRODUCTS.JS -->
+
+    <div class="product-details-backdrop" id="productDetailsBackdrop" hidden></div>
+    <section class="product-details-modal" id="productDetailsModal" role="dialog" aria-modal="true" aria-labelledby="productDetailsTitle" aria-hidden="true">
+      <button class="product-details-close" id="productDetailsClose" type="button" aria-label="Close product details">×</button>
+      <div id="productDetailsContent"></div>
+    </section>
+    <style>
+      .product-details-backdrop{position:fixed;inset:0;z-index:990;background:rgba(0,0,0,.7);backdrop-filter:blur(5px)}
+      .product-details-modal{position:fixed;z-index:991;top:50%;left:50%;transform:translate(-50%,-46%) scale(.98);opacity:0;pointer-events:none;width:min(760px,calc(100% - 28px));max-height:calc(100dvh - 28px);overflow:auto;background:#081d16;border:1px solid rgba(226,185,86,.25);border-radius:22px;padding:28px;box-shadow:0 35px 100px #0009;transition:.22s}
+      .product-details-modal.is-open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+      .product-details-close{position:absolute;right:14px;top:14px;width:38px;height:38px;border-radius:10px;border:1px solid #ffffff20;background:#071b14;color:#f2efe7;font-size:24px;cursor:pointer}
+      .product-details-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:25px;align-items:center;padding-top:12px}
+      .product-details-image{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:15px;background:#102f24}
+      .product-details-copy h2{font-size:clamp(23px,4vw,34px);line-height:1.15;margin:10px 42px 12px 0}
+      .product-details-copy p{color:#9aa79f;font-size:13px;line-height:1.8;white-space:pre-wrap}
+      .product-details-price{font-size:22px;font-weight:900;color:#e2b956;margin:16px 0}
+      .product-details-seller{display:inline-block;color:#e2b956;font-size:12px;margin:5px 0 18px;text-decoration:underline}
+      .product-details-add{width:100%;border:0;background:#e2b956;color:#142018;border-radius:11px;padding:14px;font-weight:900;cursor:pointer}
+      @media(max-width:560px){.product-details-modal{padding:18px}.product-details-layout{grid-template-columns:1fr;gap:17px}.product-details-image{max-height:260px}.product-details-copy h2{margin-top:0}}
+    </style>
+    <div class="cart-backdrop" id="cartBackdrop" hidden></div>
+    <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart" aria-hidden="true">
+      <div class="cart-drawer-header"><div><span class="section-label">YOUR SELECTION</span><h2>Your cart</h2></div><button id="cartCloseButton" class="icon-button" aria-label="Close cart" type="button">×</button></div>
+      <div id="cartItems" class="cart-items"></div>
+      <div class="cart-drawer-footer"><div class="cart-total-line"><span>Subtotal</span><strong id="cartSubtotal">0 ETB</strong></div><p>Delivery is arranged by each seller and confirmed with you.</p><a class="cart-checkout-button" href="checkout.html">Continue to checkout →</a></div>
+    </aside>
+    <div id="marketplaceToast" class="marketplace-toast" role="status" aria-live="polite"></div>
+    <style>
+      .marketplace-tools{display:grid;grid-template-columns:minmax(220px,1fr) 180px 180px auto;gap:12px;margin:24px 0 30px}
+      .marketplace-search{display:flex;align-items:center;gap:12px;min-height:48px;padding:0 15px;border:1px solid rgba(226,185,86,.2);border-radius:13px;background:#0a251d;color:#e2b956}
+      .marketplace-search input{width:100%;background:transparent;border:0;outline:0;color:#f2efe7;font:inherit;font-size:13px}.marketplace-search input::placeholder{color:#7f9188}
+      .marketplace-tools select{min-width:0;background:#0a251d;border:1px solid rgba(226,185,86,.2);border-radius:13px;color:#f2efe7;padding:0 12px;font:inherit;font-size:12px}
+      .cart-open-button{border:1px solid #e2b956;background:#e2b956;color:#172016;border-radius:13px;padding:0 16px;font-weight:800;cursor:pointer;white-space:nowrap}.cart-open-button b{display:inline-grid;place-items:center;min-width:23px;height:23px;margin-left:5px;background:#071c16;color:#e2b956;border-radius:50%;font-size:11px}
+      .storefront-product-card{position:relative;cursor:default}.product-card-actions{display:flex;gap:8px;margin-top:16px}.product-card-actions .details-button{flex:0 0 auto;border:1px solid rgba(226,185,86,.35);background:transparent;color:#e2b956;border-radius:10px;padding:10px 12px;font-size:12px;font-weight:800;cursor:pointer}.product-card-actions .add-to-cart-button{flex:1;min-width:0}.add-to-cart-button{width:100%;border:1px solid rgba(226,185,86,.5);background:linear-gradient(135deg,#f0cc77,#d7a83f);color:#132019;border-radius:10px;padding:11px 12px;font-size:12px;font-weight:800;cursor:pointer;transition:transform .2s,box-shadow .2s}.add-to-cart-button:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(226,185,86,.15)}
+      .cart-backdrop{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.65);backdrop-filter:blur(4px)}.cart-drawer{position:fixed;z-index:1001;right:0;top:0;height:100dvh;width:min(460px,100%);padding:26px;background:#081d16;border-left:1px solid rgba(226,185,86,.22);display:flex;flex-direction:column;transform:translateX(105%);transition:transform .28s ease;box-shadow:-30px 0 90px rgba(0,0,0,.35)}.cart-drawer.is-open{transform:translateX(0)}
+      .cart-drawer-header{display:flex;align-items:center;justify-content:space-between;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,.08)}.cart-drawer-header h2{font-size:28px;margin-top:5px}.icon-button{width:38px;height:38px;border:1px solid rgba(255,255,255,.12);background:transparent;color:#f2efe7;border-radius:10px;font-size:25px;cursor:pointer}.cart-items{overflow:auto;flex:1;padding:10px 0}.cart-empty{color:#9aa79f;padding:35px 0;text-align:center;line-height:1.7}
+      .cart-item{display:grid;grid-template-columns:66px 1fr auto;gap:12px;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.07)}.cart-item img,.cart-item-placeholder{width:66px;height:66px;border-radius:10px;object-fit:cover;background:#0d2b22;display:grid;place-items:center}.cart-item h3{font-size:13px;margin:2px 0 5px}.cart-item p{color:#e2b956;font-size:12px;font-weight:800}.cart-item small{color:#9aa79f;font-size:11px}.cart-quantity{display:flex;align-items:center;gap:8px;margin-top:10px}.cart-quantity button{width:25px;height:25px;background:#0d2b22;border:1px solid rgba(226,185,86,.22);color:#f2efe7;border-radius:7px;cursor:pointer}.cart-remove{border:0;background:none;color:#a7b1ab;cursor:pointer;font-size:11px;margin-top:8px}
+      .cart-drawer-footer{border-top:1px solid rgba(255,255,255,.09);padding-top:18px}.cart-total-line{display:flex;justify-content:space-between;font-size:15px;margin-bottom:12px}.cart-total-line strong{color:#e2b956}.cart-drawer-footer p{color:#8e9c94;font-size:11px;line-height:1.6;margin-bottom:15px}.cart-checkout-button{display:block;text-align:center;background:#e2b956;color:#132019;text-decoration:none;padding:14px;border-radius:11px;font-size:13px;font-weight:900}
+      .marketplace-toast{position:fixed;z-index:1100;bottom:24px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#e2b956;color:#122018;padding:12px 18px;border-radius:10px;font-size:12px;font-weight:800;transition:.2s;box-shadow:0 12px 35px #0005}.marketplace-toast.is-visible{opacity:1;transform:translate(-50%,0)}
+      @media(max-width:900px){.marketplace-tools{grid-template-columns:1fr 1fr}.marketplace-search{grid-column:1/-1}.cart-open-button{min-height:46px}}@media(max-width:520px){.marketplace-tools{grid-template-columns:1fr}.marketplace-search{grid-column:auto}.marketplace-tools select{height:46px}.cart-open-button{height:46px}.cart-drawer{padding:20px}}
+    </style>
+
+  <script src="config.js"></script>
+  <script src="storefront.js"></script>
+
+</body>
+</html> 
